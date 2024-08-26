@@ -47,7 +47,7 @@ const start = async () => {
 
         await mongoose.connect(process.env.MONGO_URI);
         app.listen(port, () =>
-            console.log(`Server is listening on port ${port} and Connected to DB`)
+            console.log(`Server is listening on port ${port} and Connected to DB and Hello to Github`)
         );
     } catch (error) {
         console.log(error);
