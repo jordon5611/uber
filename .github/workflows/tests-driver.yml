@@ -2,6 +2,8 @@ name: tests-driver
 
 on:
   pull_request
+    paths:
+      - 'driver/**'
 
 jobs:
   build:
