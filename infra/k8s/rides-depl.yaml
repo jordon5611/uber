@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rides-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rides
+  template:
+    metadata:
+      labels:
+        app: rides
+    spec:
+      containers:
+        - name: rides
+          image: jordon5611/rides
+          env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URI
+              value: "http://nats-srv:4222"
+            - name: NATS_CLUSTER_ID
+              value: uber
+            - name: MONGO_URI
+              value: "mongodb://rides-mongo-srv:27017/rides"
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rides-srv
+spec:
+  selector:
+    app: rides
+  ports:
+    - name: rides
+      protocol: TCP
+      port: 2000
+      targetPort: 2000

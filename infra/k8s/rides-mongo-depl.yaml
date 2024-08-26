@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rides-mongo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rides-mongo
+  template:
+    metadata:
+      labels:
+        app: rides-mongo
+    spec:
+      containers:
+        - name: rides-mongo
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rides-mongo-srv
+spec:
+  selector:
+    app: rides-mongo
+  ports:
+    - name: db
+      protocol: TCP
+      port: 27017
+      targetPort: 27017

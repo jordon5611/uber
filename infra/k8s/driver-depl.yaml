@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: driver-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: driver
+  template:
+    metadata:
+      labels:
+        app: driver
+    spec:
+      containers:
+        - name: driver
+          image: jordon5611/driver
+          env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URI
+              value: "http://nats-srv:4222"
+            - name: NATS_CLUSTER_ID
+              value: uber
+            - name: MONGO_URI
+              value: "mongodb://driver-mongo-srv:27017/driver"
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+            - name: Cloudinary_Cloud_Name
+              value: "dt8y2ehom"
+            - name: Cloudinary_API_Key
+              value: "519475977436658"
+            - name: Cloudinary_API_Secret
+              valueFrom:
+                secretKeyRef:
+                  name: cloudinary-secret
+                  key: Cloudinary_API_Secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: driver-srv
+spec:
+  selector:
+    app: driver
+  ports:
+    - name: driver
+      protocol: TCP
+      port: 2000
+      targetPort: 2000
