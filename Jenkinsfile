@@ -4,6 +4,7 @@ pipeline {
         AWS_DEFAULT_REGION = 'ap-south-1'
         CLUSTER_NAME = 'uber-cluster'
         DOCKER_HUB_CREDENTIALS = credentials('DOCKER_HUB_CREDENTIALS')
+        AWS_CLI_PATH = '/tmp/bin/aws'
     }
     stages {
         stage('Checkout') {
@@ -52,7 +53,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'),
                                      string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY')]) {
                         sh """
-                           /tmp/bin/aws eks update-kubeconfig --name $CLUSTER_NAME --region $AWS_DEFAULT_REGION
+                           $AWS_CLI_PATH eks update-kubeconfig --name $CLUSTER_NAME --region $AWS_DEFAULT_REGION
                            /tmp/skaffold dev
                         """
                     }
