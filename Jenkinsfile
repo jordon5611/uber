@@ -16,6 +16,7 @@ pipeline {
         stage('Build & Push Docker Images') {
             steps {
                 script {
+                    sh 'echo "Hello"'
                     //sh 'docker login -u $DOCKER_HUB_CREDENTIALS_USR --password-stdin'
                     //sh '''
                         // cd auth2
