@@ -53,7 +53,7 @@ pipeline {
                                      string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY')]) {
                         sh """
                            /tmp/bin/aws eks update-kubeconfig --name $CLUSTER_NAME --region $AWS_DEFAULT_REGION
-                           /tmp/skaffold run
+                           /tmp/skaffold dev
                         """
                     }
                 }
