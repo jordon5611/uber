@@ -3,7 +3,7 @@ pipeline {
     environment {
         AWS_DEFAULT_REGION = 'ap-south-1'
         CLUSTER_NAME = 'uber-cluster'
-        DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials-id')
+        DOCKER_HUB_CREDENTIALS = credentials('DOCKER_HUB_CREDENTIALS')
     }
     stages {
         stage('Checkout') {
