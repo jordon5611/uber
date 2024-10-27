@@ -45,6 +45,26 @@ pipeline {
                 }
             }
         }
+
+        stage('Install AWS CLI if Not Present') {
+            steps {
+                script {
+                    // Check if AWS CLI is already installed
+                    def awsCliCheck = sh(script: 'command -v aws || true', returnStatus: true)
+                    if (awsCliCheck != 0) {
+                        echo 'AWS CLI not found. Installing AWS CLI...'
+                        sh '''
+                            apt-get update && apt-get install -y unzip curl
+                            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+                            unzip awscliv2.zip
+                            sudo ./aws/install
+                        '''
+                    } else {
+                        echo 'AWS CLI is already installed.'
+                    }
+                }
+            }
+        }
         
         stage('Deploy to EKS') {
             steps {
@@ -53,8 +73,8 @@ pipeline {
                     withCredentials([string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'),
                                      string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY')]) {
                         sh """
-                           $AWS_CLI_PATH eks update-kubeconfig --name $CLUSTER_NAME --region $AWS_DEFAULT_REGION
-                           /tmp/skaffold dev
+                           aws eks update-kubeconfig --name uber-cluster --region ap-south-1
+                           
                         """
                     }
                 }
