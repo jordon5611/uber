@@ -17,7 +17,29 @@ pipeline {
             steps {
                 script {
                     sh 'echo $DOCKER_HUB_CREDENTIALS_PSW | docker login -u $DOCKER_HUB_CREDENTIALS_USR --password-stdin'
-                    sh '/tmp/skaffold build'
+                    sh '''
+                        cd auth2
+                        docker build -t jordon5611/auth2 .
+                        docker push jordon5611/auth2
+                        cd ..
+                        cd driver
+                        docker build -t jordon5611/driver .
+                        docker push jordon5611/driver
+                        cd ..
+                        cd user
+                        docker build -t jordon5611/user .
+                        docker push jordon5611/user
+                        cd ..
+                        cd payment
+                        docker build -t jordon5611/payment .
+                        docker push jordon5611/payment
+                        cd ..
+                        cd rides
+                        docker build -t jordon5611/rides .
+                        docker push jordon5611/rides
+                        cd ..
+                        
+                    '''
                 }
             }
         }
