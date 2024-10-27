@@ -48,8 +48,8 @@ pipeline {
             steps {
                 script {
                     // Use AWS credentials if not using the configured AWS CLI
-                    withCredentials([string(credentialsId: 'aws-eks-credentials', variable: 'AWS_ACCESS_KEY_ID'),
-                                     string(credentialsId: 'aws-eks-secret', variable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    withCredentials([string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'),
+                                     string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY')]) {
                         sh """
                            aws eks update-kubeconfig --name $CLUSTER_NAME --region $AWS_DEFAULT_REGION
                            /tmp/skaffold run
