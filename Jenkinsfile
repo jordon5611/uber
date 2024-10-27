@@ -3,6 +3,7 @@ pipeline {
         docker {
             image 'amazonlinux:2' // Use Amazon Linux 2 as the base image
             args '-v /var/run/docker.sock:/var/run/docker.sock' // Mount Docker socket if needed
+            customWorkspace '/var/jenkins_home/workspace/Uber-EKS-Deployment' // Ensure the correct workspace
         }
     }
     environment {
