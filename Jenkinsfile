@@ -32,21 +32,21 @@ pipeline {
             }
         }
 
-        stage('Build & Push Docker Images') {
-            steps {
-                script {
-                    sh 'echo "$DOCKER_HUB_CREDENTIALS" | docker login -u "$DOCKER_HUB_CREDENTIALS_USR" --password-stdin'
-                    sh '''
-                        for service in auth2 driver user payment rides; do
-                            cd $service
-                            docker build -t jordon5611/$service .
-                            docker push jordon5611/$service
-                            cd ..
-                        done
-                    '''
-                }
-            }
-        }
+        // stage('Build & Push Docker Images') {
+        //     steps {
+        //         script {
+        //             sh 'echo "$DOCKER_HUB_CREDENTIALS" | docker login -u "$DOCKER_HUB_CREDENTIALS_USR" --password-stdin'
+        //             sh '''
+        //                 for service in auth2 driver user payment rides; do
+        //                     cd $service
+        //                     docker build -t jordon5611/$service .
+        //                     docker push jordon5611/$service
+        //                     cd ..
+        //                 done
+        //             '''
+        //         }
+        //     }
+        // }
 
         stage('Configure AWS Credentials') {
             steps {
