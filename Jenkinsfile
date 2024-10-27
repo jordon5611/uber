@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     sh 'echo $DOCKER_HUB_CREDENTIALS_PSW | docker login -u $DOCKER_HUB_CREDENTIALS_USR --password-stdin'
-                    sh 'skaffold build'
+                    sh '/tmp/skaffold build'
                 }
             }
         }
@@ -30,7 +30,7 @@ pipeline {
                                      string(credentialsId: 'aws-eks-secret', variable: 'AWS_SECRET_ACCESS_KEY')]) {
                         sh """
                            aws eks update-kubeconfig --name $CLUSTER_NAME --region $AWS_DEFAULT_REGION
-                           skaffold run
+                           /tmp/skaffold run
                         """
                     }
                 }
