@@ -8,7 +8,7 @@ build:
   local:
     push: true
   artifacts:
-    - image: jordon5611/auth2:d76129f
+    - image: jordon5611/auth2
       context: auth2
       docker:
         dockerfile: Dockerfile
