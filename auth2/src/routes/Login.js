@@ -1,5 +1,5 @@
 const express = require('express');
-const { NotFoundError, UnauthenticatedErro, validatorMiddleware } = require('@jordonuber/common');
+const { NotFoundError, UnAuthorizedError, validatorMiddleware } = require('@jordonuber/common');
 const { body } = require('express-validator');
 const User = require('../model/User');
 
@@ -24,7 +24,7 @@ Login.post('/auth/login',
         const IsPasswordCorrect = await user.comparePassword(password)
 
         if(!IsPasswordCorrect){
-            throw new UnauthenticatedError('Password is Incorrect')
+            throw new UnAuthorizedError('Password is Incorrect')
         }
         const token = user.createToken()
 
