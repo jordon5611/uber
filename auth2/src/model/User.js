@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const { updateIfCurrentPlugin } = require('mongoose-update-if-current');
 
 const UserSchema = new mongoose.Schema({
