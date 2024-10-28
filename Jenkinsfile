@@ -16,13 +16,13 @@ pipeline {
             }
         }
 
-        stage('Build Docker Images') {
-            steps {
-                script {
-                    sh 'skaffold build'
-                }
-            }
-        }
+        // stage('Build Docker Images') {
+        //     steps {
+        //         script {
+        //             sh 'skaffold build'
+        //         }
+        //     }
+        // }
 
         // stage('Push Docker Images to Docker Hub') {
         //     steps {
