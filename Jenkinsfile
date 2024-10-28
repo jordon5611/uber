@@ -24,20 +24,20 @@ pipeline {
         //     }
         // }
 
-        stage('Push Docker Images to Docker Hub') {
-            steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'DOCKER_HUB_CREDENTIALS', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                        sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
-                        sh '''
-                            cd auth2
-                            docker build -t jordon5611/auth2 .
-                            docker push jordon5611/auth2
-                        '''
-                    }
-                }
-            }
-        }
+        // stage('Push Docker Images to Docker Hub') {
+        //     steps {
+        //         script {
+        //             withCredentials([usernamePassword(credentialsId: 'DOCKER_HUB_CREDENTIALS', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+        //                 sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
+        //                 sh '''
+        //                     cd auth2
+        //                     docker build -t jordon5611/auth2 .
+        //                     docker push jordon5611/auth2
+        //                 '''
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('Deploy to EKS') {
             steps {
