@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js"
+    "start": "nodemon src/index.js",
+    "test" : "jest --watchAll --runInBand"
+  },
+  "jest":{
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": ["./src/test/setup.js"]
   },
   "keywords": [],
   "author": "",
@@ -25,5 +30,10 @@
     "passport": "^0.7.0",
     "passport-google-oauth2": "^0.2.0",
     "twilio": "^5.2.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "mongodb-memory-server": "^10.1.2",
+    "supertest": "^7.0.0"
   }
 }
